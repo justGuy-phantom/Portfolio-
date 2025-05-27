@@ -37,7 +37,7 @@
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
-  <header class="bg-white shadow p-6 mb-8">
+     <header class="bg-white shadow p-6 mb-8">
     <h1 class="text-3xl font-bold">Hi there! I'm Peter Olukanwi</h1>
     <p class="text-sm">Email: polukanwi@gmail.com | Phone: +234 9034986739 | location: port Harcourt, Riverstate, Nigeria</p>
   </header>
@@ -239,5 +239,40 @@ practices.</li>
   <footer class="bg-gray-200 text-center p-4 mt-8">
     <p>&copy; 2025 Peter Olukanwi</p>
   </footer>
+ <script>
+  // Track contact form submissions
+  const contactForm = document.querySelector("#contactForm");
+  if (contactForm) {
+    contactForm.addEventListener("submit", () => {
+      gtag('event', 'contact_form_submit', {
+        event_category: 'Contact',
+        event_label: 'Contact Form Submitted'
+      });
+    });
+  }
+
+  // Track outbound link clicks
+  document.querySelectorAll('a').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && href.startsWith('http') && !href.includes(location.hostname)) {
+      link.addEventListener('click', () => {
+        gtag('event', 'outbound_click', {
+          event_category: 'Outbound',
+          event_label: href
+        });
+      });
+    }
+  });
+
+  // Track custom element clicks (e.g., buttons, certificates, projects)
+  document.querySelectorAll('.track-click').forEach(el => {
+    el.addEventListener('click', () => {
+      gtag('event', 'element_click', {
+        event_category: 'Interaction',
+        event_label: el.innerText || el.id
+      });
+    });
+  });
+ </script>
 </body>
   </html>
